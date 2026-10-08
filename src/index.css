@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-accent-light: #BAB686;
-  --color-accent-muted: #878677;
-  --color-accent-olive: #545239;
-  --color-accent-dark: #333118;
-  --color-accent-deep: #332F00;
+  --color-brand-light: #BAB686;
+  --color-brand-muted: #878677;
+  --color-brand-olive: #545239;
+  --color-brand-dark: #333118;
+  --color-brand-deep: #332F00;
 }

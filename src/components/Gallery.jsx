@@ -53,16 +53,16 @@ export default function Gallery() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/30 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-brand-light" />
             <span className="text-xs uppercase tracking-widest text-brand-light font-medium">
-              Portafolio de Trabajos
+              Galería
             </span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            Galería de Proyectos
+            Del lienzo de la mente al lienzo de la piel.
           </h2>
 
           <p className="text-brand-muted max-w-xl mx-auto text-base sm:text-lg font-light">
-            Explora algunos de los desarrollos y conceptos de diseño que he maquetado.
+            Obras icónicas llevadas a cabo por Keith "Bang Bang" McCurdy y nuestro colectivo de artistas residentes. Precisión técnica y estética de vanguardia en cada trazo.
           </p>
         </div>
 

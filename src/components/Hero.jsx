@@ -28,27 +28,27 @@ export default function Hero() {
       />
 
       {/* Contenido Principal */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-4">
         
         {/* Badge superior */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/40 backdrop-blur-md">
+        <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/40 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-brand-light animate-pulse" />
           <span className="text-xs uppercase tracking-widest text-brand-light font-medium">
-            Disponible para nuevos proyectos
+            Solicitar una Cita / Inquire for Booking
           </span>
         </div>
 
         {/* Titular */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
-          Diseño & Desarrollo Web <br className="hidden sm:block" />
+          Bang Bang by Keith McCurdy <br className="hidden sm:block" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light via-brand-muted to-white">
-            Soluciones Digitales a Medida
+            Where Art Meets Skin.
           </span>
         </h1>
 
         {/* Subtítulo */}
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-brand-muted font-light leading-relaxed">
-          Transformo ideas en experiencias web interactivas, modernas y optimizadas. Explora el portafolio y cotiza tu próximo proyecto.
+          La firma detrás de las piezas más icónicas del mundo. De las calles de Nueva York a la piel de las mayores estrellas globales.
         </p>
 
         {/* CTAs */}
@@ -68,19 +68,31 @@ export default function Hero() {
           </a>
         </div>
 
+
+        {/* Subtítulo */}
+
+        <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
+          Más que un estudio. Un templo del arte contemporáneo. <br className="hidden sm:block" />
+          <p className="max-w-2xl mx-auto text-base sm:text-lg text-brand-muted font-light leading-relaxed">
+          Fundado por Keith McCurdy, Bang Bang NYC revolucionó la industria del tatuaje al transformar una subcultura marginal en una experiencia de lujo y precisión quirúrgica.
+
+          Conocido por su dominio del microrrealismo, el sombreado suave y la innovación constante en pigmentos y técnicas, Keith no solo marca la piel: inmortaliza momentos, historias y legados en cada línea.
+        </p>
+        </h2>
+
         {/* Stats / Tarjetas decorativas */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-12 max-w-3xl mx-auto">
           <div className="p-4 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-brand-light">100%</h3>
-            <p className="text-xs text-brand-muted mt-1">Diseño Único</p>
+            <h3 className="text-2xl font-bold text-brand-light">15+ Años</h3>
+            <p className="text-xs text-brand-muted mt-1">refinando la vanguardia del arte corporal en Nueva York.</p>
           </div>
           <div className="p-4 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-brand-light">Fast</h3>
-            <p className="text-xs text-brand-muted mt-1">Alto Rendimiento</p>
+            <h3 className="text-2xl font-bold text-brand-light">Custom Fine-Line & Realism</h3>
+            <p className="text-xs text-brand-muted mt-1">Diseños a medida concebidos para fluir de forma natural con la anatomía y los contornos del cuerpo.</p>
           </div>
           <div className="col-span-2 md:col-span-1 p-4 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold text-brand-light">Modern UI</h3>
-            <p className="text-xs text-brand-muted mt-1">React & Tailwind v4</p>
+            <h3 className="text-2xl font-bold text-brand-light">Impulsor de la Industria</h3>
+            <p className="text-xs text-brand-muted mt-1">Desarrollador de tecnologías pioneras en tintas y bioseguridad.</p>
           </div>
         </div>
 
