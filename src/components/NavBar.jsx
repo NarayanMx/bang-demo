@@ -18,7 +18,7 @@ export default function NavBar() {
           
           {/* Logo / Nombre */}
           <a href="#hero" className="text-lg font-extrabold tracking-tight text-white hover:text-brand-light transition-colors">
-            Portafolio<span className="text-brand-light">.</span>
+            BangBang<span className="text-brand-light">.</span>
           </a>
 
           {/* Menú Desktop */}
