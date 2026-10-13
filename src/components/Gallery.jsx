@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Importación directa de las imágenes según tu estructura de carpetas
 import img1 from '../assets/Images/1.webp';
@@ -13,20 +13,22 @@ import img9 from '../assets/Images/9.webp';
 import img10 from '../assets/Images/10.webp';
 
 const images = [
-  { id: 1, src: img1, title: 'Proyecto Landing Page 1' },
-  { id: 2, src: img2, title: 'Proyecto Web App 2' },
-  { id: 3, src: img3, title: 'Diseño E-commerce 3' },
-  { id: 4, src: img4, title: 'UI/UX Dashboard 4' },
-  { id: 5, src: img5, title: 'Sitio Web Corporativo 5' },
-  { id: 6, src: img6, title: 'Aplicación Móvil Web 6' },
-  { id: 7, src: img7, title: 'Plataforma Digital 7' },
-  { id: 8, src: img8, title: 'Portal Interactivo 8' },
-  { id: 9, src: img9, title: 'Rediseño de Marca 9' },
-  { id: 10, src: img10, title: 'Catálogo Digital 10' },
+  { id: 1, src: img1, title: '' },
+  { id: 2, src: img2, title: '' },
+  { id: 3, src: img3, title: '' },
+  { id: 4, src: img4, title: '' },
+  { id: 5, src: img5, title: '' },
+  { id: 6, src: img6, title: '' },
+  { id: 7, src: img7, title: '' },
+  { id: 8, src: img8, title: '' },
+  { id: 9, src: img9, title: '' },
+  { id: 10, src: img10, title: '' },
 ];
 
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -35,6 +37,28 @@ export default function Gallery() {
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  // Autoplay del carrusel cada 4 segundos
+  useEffect(() => {
+    if (isPaused || isModalOpen) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isPaused, isModalOpen]);
+
+  // Cerrar la ventana modal con la tecla Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <section className="relative py-24 px-6 bg-black text-white overflow-hidden">
@@ -67,25 +91,41 @@ export default function Gallery() {
         </div>
 
         {/* Carrusel Principal */}
-        <div className="relative group max-w-4xl mx-auto">
+        <div 
+          className="relative group max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           
           {/* Marco e Imagen Principal */}
-          <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-3xl border border-brand-olive/50 bg-brand-dark/30 backdrop-blur-sm shadow-2xl">
+          <div 
+            onClick={() => setIsModalOpen(true)}
+            className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-3xl border border-brand-olive/50 bg-brand-dark/30 backdrop-blur-sm shadow-2xl cursor-pointer"
+          >
             <img
               src={images[currentIndex].src}
-              alt={images[currentIndex].title}
-              className="w-full h-full object-cover transition-transform duration-500 ease-out"
+              alt={images[currentIndex].title || `Galería ${currentIndex + 1}`}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
 
-            {/* Degradado inferior para resaltar título */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 sm:p-10">
+            {/* Overlay indicativo al pasar el mouse */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="px-4 py-2 rounded-full border border-brand-light bg-black/60 text-brand-light text-xs uppercase tracking-wider backdrop-blur-md">
+                Haz clic para ampliar
+              </span>
+            </div>
+
+            {/* Degradado inferior para el contador */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6 sm:p-10 pointer-events-none">
               <div className="space-y-1">
                 <span className="text-xs uppercase tracking-widest text-brand-light font-mono">
                   {String(currentIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white">
-                  {images[currentIndex].title}
-                </h3>
+                {images[currentIndex].title && (
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                    {images[currentIndex].title}
+                  </h3>
+                )}
               </div>
             </div>
           </div>
@@ -131,6 +171,43 @@ export default function Gallery() {
         </div>
 
       </div>
+
+      {/* Ventana Modal / Lightbox */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center justify-center">
+            
+            {/* Botón Cerrar Modal */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute -top-12 right-0 p-2 text-brand-light hover:text-white transition-colors cursor-pointer"
+              aria-label="Cerrar modal"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Imagen Ampliada */}
+            <img
+              src={images[currentIndex].src}
+              alt={images[currentIndex].title || `Galería amplia ${currentIndex + 1}`}
+              className="max-w-full max-h-[80vh] object-contain rounded-2xl border border-brand-olive/40 shadow-2xl"
+              onClick={(e) => e.stopPropagation()} 
+            />
+
+            {/* Contador en Modal */}
+            <div className="mt-4 text-center">
+              <span className="text-xs uppercase tracking-widest text-brand-light font-mono">
+                {String(currentIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
