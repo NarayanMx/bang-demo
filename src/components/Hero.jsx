@@ -38,15 +38,7 @@ export default function Hero() {
           {/* Bloque Izquierdo: Textos y CTAs (Centrados en todas las resoluciones) */}
           <div className="lg:col-span-7 space-y-6 text-center flex flex-col items-center">
             
-            {/* Badge superior */}
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/40 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-brand-light animate-pulse" />
-              <span className="text-xs uppercase tracking-widest text-brand-light font-medium">
-                Solicitar una Cita / Inquire for Booking
-              </span>
-            </div>
-
-            {/* Titular */}
+          {/* Titular */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight">
               Bang Bang <br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light via-brand-muted to-white">
