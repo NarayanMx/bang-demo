@@ -1,60 +1,66 @@
 import React, { useState } from 'react';
 
 export default function CotizadorBangBang() {
-  // Precio base del estudio por sesión mínima
-  const BASE_STUDIO_PRICE = 500;
+  // Número de WhatsApp del estudio/tatuador (en formato internacional sin símbolos)
+  const PHONE_NUMBER = '5213300000000'; // Reemplaza con tu número de WhatsApp real
+
+  // Precio base del estudio por sesión mínima (en MXN)
+  const BASE_STUDIO_PRICE = 1200;
 
   // 1. Estilo de Color
   const estilosColor = [
     { id: 'bg', nombre: 'Black & Grey', precio: 0, desc: 'Sombras suaves, graduación en tinta negra y grises.' },
-    { id: 'color', nombre: 'Color Saturado', precio: 300, desc: 'Pigmentación rica en color y degradados fotográficos.' },
+    { id: 'color', nombre: 'Color Saturado', precio: 500, desc: 'Pigmentación rica en color y degradados fotográficos.' },
   ];
 
   // 2. Área del Cuerpo (Complejidad Anatómica)
   const zonasCuerpo = [
     { id: 'standard', nombre: 'Brazo / Antebrazo / Muslo', precio: 0, desc: 'Zonas de densidad y elasticidad estándar.' },
-    { id: 'torso', nombre: 'Espalda / Pecho', precio: 200, desc: 'Lienzo amplio, requiere mayor tiempo de fijación.' },
-    { id: 'sensitive', nombre: 'Costillas / Cuello / Abdomen', precio: 350, desc: 'Zonas de alta sensibilidad y textura delicada.' },
-    { id: 'extremities', nombre: 'Manos / Pies / Articulaciones', precio: 400, desc: 'Máxima dificultad técnica y desgaste cutáneo.' },
+    { id: 'torso', nombre: 'Espalda / Pecho', precio: 400, desc: 'Lienzo amplio, requiere mayor tiempo de fijación.' },
+    { id: 'sensitive', nombre: 'Costillas / Cuello / Abdomen', precio: 600, desc: 'Zonas de alta sensibilidad y textura delicada.' },
+    { id: 'extremities', nombre: 'Manos / Pies / Articulaciones', precio: 800, desc: 'Máxima dificultad técnica y desgaste cutáneo.' },
   ];
 
-  // 3. Técnica y Tamaño
+  // 3. Técnica y Tamaño (Mutuamente excluyentes)
   const tecnicasList = [
-    { id: 'micro', nombre: 'Micro Tatuaje / Fine Line (1RL)', precio: 200 },
-    { id: 'medium', nombre: 'Pieza Mediana (10-15 cm)', precio: 400 },
-    { id: 'large', nombre: 'Pieza Grande / Media Manga', precio: 800 },
-    { id: 'fullday', nombre: 'Sesión Día Completo (Full Day)', precio: 1200 },
+    { id: 'micro', nombre: 'Micro Tatuaje / Fine Line (1RL)', precio: 600, desc: 'Línea fina y de alta precisión en área pequeña.' },
+    { id: 'medium', nombre: 'Pieza Mediana (10-15 cm)', precio: 1500, desc: 'Proporción estándar ideal para antebrazos o muslos.' },
+    { id: 'large', nombre: 'Pieza Grande / Media Manga', precio: 3500, desc: 'Cobertura amplia de gran detalle y sombra.' },
+    { id: 'fullday', nombre: 'Sesión Día Completo (Full Day)', precio: 6000, desc: 'Jornada intensiva para composiciones grandes.' },
   ];
 
   // Estados
   const [estiloColorSeleccionado, setEstiloColorSeleccionado] = useState(estilosColor[0]);
   const [zonaSeleccionada, setZonaSeleccionada] = useState(zonasCuerpo[0]);
-  const [tecnicasSeleccionadas, setTecnicasSeleccionadas] = useState([]);
-
-  // Alternar selección de técnicas
-  const toggleTecnica = (tecnica) => {
-    if (tecnicasSeleccionadas.some((t) => t.id === tecnica.id)) {
-      setTecnicasSeleccionadas(tecnicasSeleccionadas.filter((t) => t.id !== tecnica.id));
-    } else {
-      setTecnicasSeleccionadas([...tecnicasSeleccionadas, tecnica]);
-    }
-  };
+  const [tecnicaSeleccionada, setTecnicaSeleccionada] = useState(tecnicasList[0]);
 
   // Cálculo del total estimado
   const totalEstimado =
     BASE_STUDIO_PRICE +
     estiloColorSeleccionado.precio +
     zonaSeleccionada.precio +
-    tecnicasSeleccionadas.reduce((acc, curr) => acc + curr.precio, 0);
+    tecnicaSeleccionada.precio;
 
-  // Formato de moneda en USD
+  // Formato de moneda en MXN ($ Pesos Mexicanos)
   const formatPrecio = (monto) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('es-MX', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'MXN',
       maximumFractionDigits: 0,
     }).format(monto);
   };
+
+  // Construcción dinámica del mensaje de WhatsApp
+  const mensajeWhatsApp = encodeURIComponent(
+    `Hola Bang Bang, me gustaría agendar una cita para cotizar un tatuaje con los siguientes detalles:\n\n` +
+    `🎨 *Estilo:* ${estiloColorSeleccionado.nombre}\n` +
+    `📍 *Zona del Cuerpo:* ${zonaSeleccionada.nombre}\n` +
+    `📏 *Tamaño/Especificación:* ${tecnicaSeleccionada.nombre}\n` +
+    `💰 *Inversión Estimada:* ${formatPrecio(totalEstimado)}\n\n` +
+    `Quedo a la espera para coordinar la fecha y enviar mis referencias visuales. ¡Gracias!`
+  );
+
+  const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${mensajeWhatsApp}`;
 
   return (
     <section className="relative py-24 px-6 bg-black text-white overflow-hidden">
@@ -73,7 +79,7 @@ export default function CotizadorBangBang() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/30 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-brand-light" />
             <span className="text-xs uppercase tracking-widest text-brand-light font-medium">
-              Project Estimator & Inquiries
+              Cotizador & Citas
             </span>
           </div>
 
@@ -82,7 +88,7 @@ export default function CotizadorBangBang() {
           </h2>
 
           <p className="text-brand-muted max-w-xl mx-auto text-base sm:text-lg font-light">
-            Selecciona la zona del cuerpo, acabado y técnica para obtener una estimación preliminar de tu sesión en Nueva York.
+            Selecciona la zona del cuerpo, acabado y técnica para obtener una estimación preliminar de tu sesión.
           </p>
         </div>
 
@@ -158,7 +164,7 @@ export default function CotizadorBangBang() {
               </div>
             </div>
 
-            {/* Paso 3: Escala / Complejidad Técnica */}
+            {/* Paso 3: Escala / Dimensión (Mutuamente Excluyente) */}
             <div className="space-y-4">
               <h3 className="text-sm uppercase tracking-wider text-brand-muted font-semibold">
                 3. Dimensión y Especificaciones Técnicas
@@ -166,33 +172,26 @@ export default function CotizadorBangBang() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {tecnicasList.map((tecnica) => {
-                  const isChecked = tecnicasSeleccionadas.some((t) => t.id === tecnica.id);
+                  const isSelected = tecnicaSeleccionada.id === tecnica.id;
                   return (
-                    <div
+                    <button
                       key={tecnica.id}
-                      onClick={() => toggleTecnica(tecnica)}
-                      className={`p-4 rounded-xl border transition-all duration-300 flex items-center justify-between cursor-pointer select-none ${
-                        isChecked
-                          ? 'border-brand-light bg-brand-olive/30 text-white'
-                          : 'border-brand-olive/40 bg-brand-dark/20 hover:border-brand-olive text-brand-muted hover:text-white'
+                      type="button"
+                      onClick={() => setTecnicaSeleccionada(tecnica)}
+                      className={`p-4 rounded-xl text-left border transition-all duration-300 flex flex-col justify-between space-y-2 cursor-pointer ${
+                        isSelected
+                          ? 'border-brand-light bg-brand-dark/80 ring-1 ring-brand-light shadow-lg shadow-brand-light/10'
+                          : 'border-brand-olive/40 bg-brand-dark/20 hover:border-brand-olive hover:bg-brand-dark/40'
                       }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
-                          isChecked ? 'border-brand-light bg-brand-light text-black' : 'border-brand-olive'
-                        }`}>
-                          {isChecked && (
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                        <span className="text-sm font-medium">{tecnica.nombre}</span>
+                      <div className="flex justify-between items-center w-full">
+                        <h4 className="font-medium text-white text-sm">{tecnica.nombre}</h4>
+                        <span className="text-xs font-semibold text-brand-light">
+                          +{formatPrecio(tecnica.precio)}
+                        </span>
                       </div>
-                      <span className="text-xs font-semibold text-brand-light">
-                        +{formatPrecio(tecnica.precio)}
-                      </span>
-                    </div>
+                      <p className="text-[11px] text-brand-muted leading-relaxed">{tecnica.desc}</p>
+                    </button>
                   );
                 })}
               </div>
@@ -208,7 +207,7 @@ export default function CotizadorBangBang() {
 
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-brand-muted">
-                <span>Sesión Base Studio</span>
+                <span>Mínimo de Sesión</span>
                 <span className="text-white font-medium">{formatPrecio(BASE_STUDIO_PRICE)}</span>
               </div>
 
@@ -226,12 +225,12 @@ export default function CotizadorBangBang() {
                 </span>
               </div>
 
-              {tecnicasSeleccionadas.map((tecnica) => (
-                <div key={tecnica.id} className="flex justify-between text-brand-muted text-xs">
-                  <span>+ {tecnica.nombre}</span>
-                  <span className="text-white font-medium">{formatPrecio(tecnica.precio)}</span>
-                </div>
-              ))}
+              <div className="flex justify-between text-brand-muted">
+                <span>Tamaño: {tecnicaSeleccionada.nombre}</span>
+                <span className="text-white font-medium">
+                  {formatPrecio(tecnicaSeleccionada.precio)}
+                </span>
+              </div>
             </div>
 
             <div className="border-t border-brand-olive/40 pt-4 space-y-2">
@@ -240,13 +239,16 @@ export default function CotizadorBangBang() {
                 <span className="text-2xl font-extrabold text-brand-light">{formatPrecio(totalEstimado)}</span>
               </div>
               <p className="text-[10px] text-brand-muted/70 leading-normal">
-                *Todas las estimaciones son preliminares (USD). El valor definitivo se confirma tras la revisión directa del boceto y la anatomía.
+                *Todas las estimaciones son preliminares (MXN). El valor definitivo se confirma tras la revisión directa del diseño y la anatomía.
               </p>
             </div>
 
+            {/* Enlace directo a WhatsApp con los datos formateados */}
             <a
-              href="#booking"
-              className="block w-full py-3.5 rounded-xl text-black font-semibold bg-brand-light hover:bg-brand-muted hover:text-white transition-all duration-300 text-center text-sm shadow-lg shadow-brand-light/10 active:scale-95 uppercase tracking-wider"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full py-3.5 rounded-xl text-black font-semibold bg-[#25D366] hover:bg-[#20ba5a] transition-all duration-300 text-center text-sm shadow-lg shadow-[#25D366]/20 active:scale-95 uppercase tracking-wider"
             >
               Agendar mi Cita
             </a>

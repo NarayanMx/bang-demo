@@ -1,9 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-light: #BAB686;
-  --color-brand-muted: #878677;
-  --color-brand-olive: #545239;
-  --color-brand-dark: #333118;
-  --color-brand-deep: #332F00;
+  /* Nueva Paleta de Colores (Azul Noche, Acero, Pizarra) */
+  --color-brand-light: #A3B3B3;   /* Acero/Plata claro (Acentos y CTAs) */
+  --color-brand-muted: #545F5B;   /* Gris verde apagado (Subtítulos/Muted) */
+  --color-brand-olive: #363B42;   /* Gris Pizarra Oscuro (Bordes y líneas) */
+  --color-brand-dark: #003042;    /* Azul Petróleo Profundo (Cards y superficies) */
+  --color-brand-deep: #4A4A54;    /* Violeta/Gris Pizarra (Sombras y graduaciones) */
+
+  /* Fuente base para lectura general */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Fuente violenta / agresiva para títulos */
+  /* Opción A: "Dela Gothic One" (Súper pesada, urbana y contundente) */
+  /* Opción B: "UnifrakturMaguntia" (Gótica clásica violenta) */
+  --font-display: "Dela Gothic One", sans-serif;
+  --font-gothic: "UnifrakturMaguntia", cursive;
 }

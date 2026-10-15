@@ -35,8 +35,9 @@ export default function Hero() {
         {/* Fila 1: Hero split - Texto y Retrato de Keith */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Bloque Izquierdo: Textos y CTAs */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          {/* Bloque Izquierdo: Textos y CTAs (Centrados en todas las resoluciones) */}
+          <div className="lg:col-span-7 space-y-6 text-center flex flex-col items-center">
+            
             {/* Badge superior */}
             <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-brand-olive bg-brand-dark/40 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-brand-light animate-pulse" />
@@ -58,12 +59,12 @@ export default function Hero() {
             </h2>
 
             {/* Subtítulo */}
-            <p className="max-w-xl text-base sm:text-lg text-brand-muted font-light leading-relaxed">
+            <p className="max-w-xl mx-auto text-base sm:text-lg text-brand-muted font-light leading-relaxed">
               La firma detrás de las piezas más icónicas del mundo. De las calles de Nueva York a la piel de las mayores estrellas globales.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full sm:w-auto">
               <a
                 href="#cotizador"
                 className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-black font-semibold bg-brand-light hover:bg-brand-muted hover:text-white transition-all duration-300 shadow-lg shadow-brand-light/20 active:scale-95 text-center"
@@ -81,7 +82,7 @@ export default function Hero() {
           </div>
 
           {/* Bloque Derecho: Retrato con iluminación de acento */}
-          <div className="lg:col-span-5 relative flex justify-center">
+          <div className="lg:col-span-5 relative flex justify-center items-center">
             {/* Brillo suave detrás de la foto */}
             <div className="absolute inset-0 bg-brand-light/20 blur-3xl rounded-full transform scale-75 pointer-events-none" />
             
@@ -111,15 +112,15 @@ export default function Hero() {
 
         {/* Fila 3: Stats / Tarjetas decorativas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-left">
+          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-center">
             <h3 className="text-2xl font-bold text-brand-light">15+ Años</h3>
             <p className="text-xs text-brand-muted">Refinando la vanguardia del arte corporal en Nueva York.</p>
           </div>
-          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-left">
+          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-center">
             <h3 className="text-2xl font-bold text-brand-light">Custom Fine-Line</h3>
             <p className="text-xs text-brand-muted">Diseños a medida concebidos para fluir de forma natural con la anatomía y los contornos del cuerpo.</p>
           </div>
-          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-left">
+          <div className="p-6 rounded-2xl border border-brand-olive/50 bg-brand-dark/20 backdrop-blur-sm space-y-2 text-center">
             <h3 className="text-2xl font-bold text-brand-light">Impulsor de la Industria</h3>
             <p className="text-xs text-brand-muted">Desarrollador de tecnologías pioneras en tintas y bioseguridad.</p>
           </div>

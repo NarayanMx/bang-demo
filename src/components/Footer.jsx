@@ -17,11 +17,11 @@ export default function Footer() {
         
         {/* Marca / Branding */}
         <div className="space-y-2 text-center md:text-left">
-          <a href="#hero" className="text-xl font-extrabold tracking-tight text-white hover:text-brand-light transition-colors">
-            Portafolio<span className="text-brand-light">.</span>
+          <a href="#hero" className="text-xl font-extrabold tracking-tight text-brand-muted hover:text-brand-light transition-colors">
+            Bang Bang<span className="text-brand-muted">.</span>
           </a>
           <p className="text-xs text-brand-muted max-w-sm font-light">
-            Diseño y desarrollo de sitios web modernos, rápidos y orientados a resultados.
+            Where Art Meets Skin.
           </p>
         </div>
 
