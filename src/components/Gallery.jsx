@@ -30,6 +30,10 @@ export default function Gallery() {
   const [isPaused, setIsPaused] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Estado para capturar gestos de deslizamiento táctil (Swipe)
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
+
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
@@ -38,7 +42,7 @@ export default function Gallery() {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  // Autoplay del carrusel cada 4 segundos
+  // Autoplay del carrusel cada 4 segundos (solo si el modal está cerrado)
   useEffect(() => {
     if (isPaused || isModalOpen) return;
 
@@ -49,16 +53,51 @@ export default function Gallery() {
     return () => clearInterval(interval);
   }, [currentIndex, isPaused, isModalOpen]);
 
-  // Cerrar la ventana modal con la tecla Escape
+  // Navegación por teclado (Escape para cerrar, Flechas para deslizar)
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (!isModalOpen) return;
+
       if (e.key === 'Escape') {
         setIsModalOpen(false);
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [isModalOpen]);
+
+  // Manejo de gestos táctiles (Swipe)
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+
+    const distance = touchStartX - touchEndX;
+    const minSwipeDistance = 50; // Umbral mínimo de píxeles para detectar swipe
+
+    if (distance > minSwipeDistance) {
+      // Deslizar a la izquierda -> Siguiente imagen
+      nextSlide();
+    } else if (distance < -minSwipeDistance) {
+      // Deslizar a la derecha -> Imagen anterior
+      prevSlide();
+    }
+
+    // Reiniciar valores táctiles
+    setTouchStartX(0);
+    setTouchEndX(0);
+  };
 
   return (
     <section className="relative py-24 px-6 bg-black text-white overflow-hidden">
@@ -130,7 +169,7 @@ export default function Gallery() {
             </div>
           </div>
 
-          {/* Botón Flecha Izquierda */}
+          {/* Botón Flecha Izquierda (Carrusel Principal) */}
           <button
             onClick={prevSlide}
             aria-label="Imagen anterior"
@@ -141,7 +180,7 @@ export default function Gallery() {
             </svg>
           </button>
 
-          {/* Botón Flecha Derecha */}
+          {/* Botón Flecha Derecha (Carrusel Principal) */}
           <button
             onClick={nextSlide}
             aria-label="Siguiente imagen"
@@ -172,40 +211,76 @@ export default function Gallery() {
 
       </div>
 
-      {/* Ventana Modal / Lightbox */}
+      {/* Ventana Modal / Lightbox Interactivo */}
       {isModalOpen && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300 select-none"
           onClick={() => setIsModalOpen(false)}
         >
-          <div className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center justify-center">
-            
-            {/* Botón Cerrar Modal */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute -top-12 right-0 p-2 text-brand-light hover:text-white transition-colors cursor-pointer"
-              aria-label="Cerrar modal"
-            >
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+          {/* Botón Cerrar Modal */}
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-6 right-6 z-50 p-3 rounded-full bg-black/60 border border-brand-olive/50 text-brand-light hover:text-white hover:border-brand-light transition-all cursor-pointer"
+            aria-label="Cerrar modal"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
 
-            {/* Imagen Ampliada */}
+          {/* Flecha Izquierda (Modal Desktop) */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              prevSlide();
+            }}
+            aria-label="Imagen anterior"
+            className="hidden sm:flex absolute left-6 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-black/60 border border-brand-olive/60 text-brand-light hover:bg-brand-light hover:text-black transition-all duration-300 backdrop-blur-md active:scale-90 cursor-pointer"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Flecha Derecha (Modal Desktop) */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              nextSlide();
+            }}
+            aria-label="Siguiente imagen"
+            className="hidden sm:flex absolute right-6 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full bg-black/60 border border-brand-olive/60 text-brand-light hover:bg-brand-light hover:text-black transition-all duration-300 backdrop-blur-md active:scale-90 cursor-pointer"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Contenedor e Imagen Ampliada con eventos táctiles (Swipe) */}
+          <div 
+            className="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <img
               src={images[currentIndex].src}
               alt={images[currentIndex].title || `Galería amplia ${currentIndex + 1}`}
-              className="max-w-full max-h-[80vh] object-contain rounded-2xl border border-brand-olive/40 shadow-2xl"
-              onClick={(e) => e.stopPropagation()} 
+              className="max-w-full max-h-[80vh] object-contain rounded-2xl border border-brand-olive/40 shadow-2xl transition-all duration-300"
             />
 
-            {/* Contador en Modal */}
-            <div className="mt-4 text-center">
-              <span className="text-xs uppercase tracking-widest text-brand-light font-mono">
+            {/* Contador e Indicador en Modal */}
+            <div className="mt-4 text-center space-y-1">
+              <span className="text-xs uppercase tracking-widest text-brand-light font-mono block">
                 {String(currentIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
               </span>
+              <p className="text-[11px] text-brand-muted sm:hidden">
+                (Desliza hacia los lados para navegar)
+              </p>
             </div>
           </div>
+
         </div>
       )}
     </section>

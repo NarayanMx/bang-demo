@@ -23,7 +23,7 @@ const zonasCuerpo = [
 
 // 3. Técnica y Tamaño
 const tecnicasList = [
-  { id: 'micro', emoji: '🤏', nombre: 'Micro / Fine Line (1RL)', precio: 600, desc: 'Trazo fino en formato pequeño.' },
+  { id: 'micro', emoji: '🤏', nombre: 'Micro / Fine Line', precio: 600, desc: 'Trazo fino en formato pequeño.' },
   { id: 'medium', emoji: '📐', nombre: 'Mediano (10-15 cm)', precio: 1500, desc: 'Ideal para antebrazo o muslo.' },
   { id: 'large', emoji: '🖼️', nombre: 'Grande / Media Manga', precio: 3500, desc: 'Cobertura amplia y sombras.' },
   { id: 'fullday', emoji: '⏳', nombre: 'Sesión Full Day', precio: 6000, desc: 'Día completo para piezas complejas.' },
