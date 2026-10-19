@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
 
 export default function CotizadorBangBang() {
-  // Número de WhatsApp del estudio/tatuador (en formato internacional sin símbolos)
-  const PHONE_NUMBER = '5213300000000'; // Reemplaza con tu número de WhatsApp real
+  // Número de WhatsApp del estudio/tatuador
+  const PHONE_NUMBER = '523311934925'; 
 
-  // Precio base del estudio por sesión mínima (en MXN)
+  // Precio base del estudio por sesión mínima (MXN)
   const BASE_STUDIO_PRICE = 1200;
 
-  // 1. Estilo de Color
-  const estilosColor = [
-    { id: 'bg', nombre: 'Black & Grey', precio: 0, desc: 'Sombras suaves, graduación en tinta negra y grises.' },
-    { id: 'color', nombre: 'Color Saturado', precio: 500, desc: 'Pigmentación rica en color y degradados fotográficos.' },
-  ];
+// 1. Estilo de Color
+const estilosColor = [
+  { id: 'bg', emoji: '🖤', nombre: 'Black & Grey', precio: 0, desc: 'Sombras suaves y tinta negra.' },
+  { id: 'color', emoji: '🎨', nombre: 'Color Saturado', precio: 500, desc: 'Color intenso y degradados.' },
+];
 
-  // 2. Área del Cuerpo (Complejidad Anatómica)
-  const zonasCuerpo = [
-    { id: 'standard', nombre: 'Brazo / Antebrazo / Muslo', precio: 0, desc: 'Zonas de densidad y elasticidad estándar.' },
-    { id: 'torso', nombre: 'Espalda / Pecho', precio: 400, desc: 'Lienzo amplio, requiere mayor tiempo de fijación.' },
-    { id: 'sensitive', nombre: 'Costillas / Cuello / Abdomen', precio: 600, desc: 'Zonas de alta sensibilidad y textura delicada.' },
-    { id: 'extremities', nombre: 'Manos / Pies / Articulaciones', precio: 800, desc: 'Máxima dificultad técnica y desgaste cutáneo.' },
-  ];
+// 2. Área del Cuerpo
+const zonasCuerpo = [
+  { id: 'standard', emoji: '💪', nombre: 'Brazo / Antebrazo / Muslo', precio: 0, desc: 'Superficie plana de fácil aplicación.' },
+  { id: 'torso', emoji: '🫁', nombre: 'Espalda / Pecho', precio: 400, desc: 'Lienzo amplio para piezas grandes.' },
+  { id: 'sensitive', emoji: '⚡', nombre: 'Costillas / Cuello / Abdomen', precio: 600, desc: 'Piel sensible de alta delicadeza.' },
+  { id: 'extremities', emoji: '🖐️', nombre: 'Manos / Pies / Articulaciones', precio: 800, desc: 'Alta precisión técnica requerida.' },
+];
 
-  // 3. Técnica y Tamaño (Mutuamente excluyentes)
-  const tecnicasList = [
-    { id: 'micro', nombre: 'Micro Tatuaje / Fine Line (1RL)', precio: 600, desc: 'Línea fina y de alta precisión en área pequeña.' },
-    { id: 'medium', nombre: 'Pieza Mediana (10-15 cm)', precio: 1500, desc: 'Proporción estándar ideal para antebrazos o muslos.' },
-    { id: 'large', nombre: 'Pieza Grande / Media Manga', precio: 3500, desc: 'Cobertura amplia de gran detalle y sombra.' },
-    { id: 'fullday', nombre: 'Sesión Día Completo (Full Day)', precio: 6000, desc: 'Jornada intensiva para composiciones grandes.' },
-  ];
+// 3. Técnica y Tamaño
+const tecnicasList = [
+  { id: 'micro', emoji: '🤏', nombre: 'Micro / Fine Line (1RL)', precio: 600, desc: 'Trazo fino en formato pequeño.' },
+  { id: 'medium', emoji: '📐', nombre: 'Mediano (10-15 cm)', precio: 1500, desc: 'Ideal para antebrazo o muslo.' },
+  { id: 'large', emoji: '🖼️', nombre: 'Grande / Media Manga', precio: 3500, desc: 'Cobertura amplia y sombras.' },
+  { id: 'fullday', emoji: '⏳', nombre: 'Sesión Full Day', precio: 6000, desc: 'Día completo para piezas complejas.' },
+];
 
   // Estados
   const [estiloColorSeleccionado, setEstiloColorSeleccionado] = useState(estilosColor[0]);
@@ -50,14 +50,14 @@ export default function CotizadorBangBang() {
     }).format(monto);
   };
 
-  // Construcción dinámica del mensaje de WhatsApp
+  // Mensaje de WhatsApp súper limpio y minimalista
   const mensajeWhatsApp = encodeURIComponent(
-    `Hola Bang Bang, me gustaría agendar una cita para cotizar un tatuaje con los siguientes detalles:\n\n` +
-    `🎨 *Estilo:* ${estiloColorSeleccionado.nombre}\n` +
-    `📍 *Zona del Cuerpo:* ${zonaSeleccionada.nombre}\n` +
-    `📏 *Tamaño/Especificación:* ${tecnicaSeleccionada.nombre}\n` +
-    `💰 *Inversión Estimada:* ${formatPrecio(totalEstimado)}\n\n` +
-    `Quedo a la espera para coordinar la fecha y enviar mis referencias visuales. ¡Gracias!`
+    `Hola Bang Bang, quisiera cotizar un tatuaje:\n\n` +
+    `Estilo: ${estiloColorSeleccionado.nombre}\n` +
+    `Zona: ${zonaSeleccionada.nombre}\n` +
+    `Tamaño: ${tecnicaSeleccionada.nombre}\n` +
+    `Total estimado: ${formatPrecio(totalEstimado)}\n\n` +
+    `¿Me confirmas disponibilidad? Gracias.`
   );
 
   const whatsappUrl = `https://wa.me/${PHONE_NUMBER}?text=${mensajeWhatsApp}`;
@@ -98,7 +98,7 @@ export default function CotizadorBangBang() {
           {/* Opciones (Columna Izquierda / Centro) */}
           <div className="lg:col-span-8 space-y-8">
             
-            {/* Paso 1: Estilo de Color / B&N */}
+            {/* Paso 1: Estilo de Color */}
             <div className="space-y-4">
               <h3 className="text-sm uppercase tracking-wider text-brand-muted font-semibold">
                 1. Estilo de Color
@@ -119,7 +119,10 @@ export default function CotizadorBangBang() {
                       }`}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <h4 className="font-bold text-white text-base">{estilo.nombre}</h4>
+                        <h4 className="font-bold text-white text-base flex items-center gap-2">
+                          <span>{estilo.emoji}</span>
+                          <span>{estilo.nombre}</span>
+                        </h4>
                         <span className="text-xs font-semibold text-brand-light">
                           {estilo.precio > 0 ? `+${formatPrecio(estilo.precio)}` : 'Incluido'}
                         </span>
@@ -152,7 +155,10 @@ export default function CotizadorBangBang() {
                       }`}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <h4 className="font-medium text-white text-sm">{zona.nombre}</h4>
+                        <h4 className="font-medium text-white text-sm flex items-center gap-2">
+                          <span>{zona.emoji}</span>
+                          <span>{zona.nombre}</span>
+                        </h4>
                         <span className="text-xs font-semibold text-brand-light">
                           {zona.precio > 0 ? `+${formatPrecio(zona.precio)}` : 'Estándar'}
                         </span>
@@ -164,7 +170,7 @@ export default function CotizadorBangBang() {
               </div>
             </div>
 
-            {/* Paso 3: Escala / Dimensión (Mutuamente Excluyente) */}
+            {/* Paso 3: Escala / Dimensión */}
             <div className="space-y-4">
               <h3 className="text-sm uppercase tracking-wider text-brand-muted font-semibold">
                 3. Dimensión y Especificaciones Técnicas
@@ -185,7 +191,10 @@ export default function CotizadorBangBang() {
                       }`}
                     >
                       <div className="flex justify-between items-center w-full">
-                        <h4 className="font-medium text-white text-sm">{tecnica.nombre}</h4>
+                        <h4 className="font-medium text-white text-sm flex items-center gap-2">
+                          <span>{tecnica.emoji}</span>
+                          <span>{tecnica.nombre}</span>
+                        </h4>
                         <span className="text-xs font-semibold text-brand-light">
                           +{formatPrecio(tecnica.precio)}
                         </span>

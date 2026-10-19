@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function WhatsApp() {
   // Número de WhatsApp en formato internacional (sin símbolos ni espacios)
-  const phoneNumber = '15551234567'; // Reemplaza con el número real de WhatsApp de Keith/Bang Bang
+  const phoneNumber = '523311934925'; // Reemplaza con el número real de WhatsApp de Keith/Bang Bang
   
   // Mensaje predeterminado para el cliente
   const defaultMessage = encodeURIComponent(

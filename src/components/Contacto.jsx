@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Contacto() {
-  const phoneNumber = '15551234567'; // Reemplaza con el número real de WhatsApp de Keith/Bang Bang
+  const phoneNumber = '523311934925'; // Reemplaza con el número real de WhatsApp de Keith/Bang Bang
   const defaultMessage = encodeURIComponent(
     'Hola Keith, me gustaría solicitar información y cotizar una cita para un proyecto de tatuaje.'
   );
