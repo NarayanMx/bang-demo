@@ -120,7 +120,7 @@ export default function Gallery() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          <h2 className="scroll-reveal font-sans opacity-0 translate-y-8 transition-all duration-1000 ease-out font-sans text-3xl sm:text-5xl tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-light via-slate-200 to-brand-muted">
             Del lienzo de la mente al lienzo de la piel.
           </h2>
 

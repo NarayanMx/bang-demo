@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import Gallery from './components/Gallery';
-import Cotizador from './components/Cotizador';
+import FAQ from './components/FAQ';
 import Reseñas from './components/Reseñas';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
@@ -24,12 +24,12 @@ export default function App() {
           <Gallery />
         </section>
 
-        <section id="cotizador">
-          <Cotizador />
-        </section>
-
         <section id="resenas">
           <Reseñas />
+        </section>
+
+        <section id="FAQ">
+          <FAQ />
         </section>
 
         <section id="contacto">

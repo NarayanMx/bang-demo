@@ -6,7 +6,6 @@ export default function NavBar() {
   const navLinks = [
     { name: 'Inicio', href: '#hero' },
     { name: 'Galería', href: '#gallery' },
-    { name: 'Cotizador', href: '#cotizador' },
     { name: 'Reseñas', href: '#resenas' },
     { name: 'Contacto', href: '#contacto' },
   ];
@@ -17,7 +16,7 @@ export default function NavBar() {
         <div className="flex items-center justify-between px-6 py-3 rounded-2xl border border-brand-olive/40 bg-black/70 backdrop-blur-md shadow-lg shadow-black/50">
           
           {/* Logo / Nombre */}
-          <a href="#hero" className="text-lg font-extrabold tracking-tight text-white hover:text-brand-light transition-colors">
+          <a href="#hero" className="font-gothic text-lg font-extrabold tracking-tight text-white hover:text-brand-light transition-colors">
             BangBang<span className="text-brand-light">.</span>
           </a>
 
@@ -34,16 +33,7 @@ export default function NavBar() {
             ))}
           </nav>
 
-          {/* Botón CTA Desktop */}
-          <div className="hidden md:block">
-            <a
-              href="#cotizador"
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-black bg-brand-light hover:bg-brand-muted hover:text-white transition-all duration-300 shadow-md shadow-brand-light/10 active:scale-95"
-            >
-              Cotizar
-            </a>
-          </div>
-
+  
           {/* Botón Menú Hamburguesa (Mobile) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -75,15 +65,6 @@ export default function NavBar() {
                   {link.name}
                 </a>
               ))}
-            </div>
-            <div className="pt-2 border-t border-brand-olive/30">
-              <a
-                href="#cotizador"
-                onClick={() => setIsOpen(false)}
-                className="block w-full py-2.5 text-center rounded-xl text-xs font-semibold text-black bg-brand-light hover:bg-brand-muted hover:text-white transition-all duration-300"
-              >
-                Cotizar Proyecto
-              </a>
             </div>
           </div>
         )}

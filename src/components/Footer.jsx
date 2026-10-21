@@ -17,7 +17,7 @@ export default function Footer() {
         
         {/* Marca / Branding */}
         <div className="space-y-2 text-center md:text-left">
-          <a href="#hero" className="text-xl font-extrabold tracking-tight text-brand-muted hover:text-brand-light transition-colors">
+          <a href="#hero" className="font-gothic text-xl font-extrabold tracking-tight text-brand-muted hover:text-brand-light transition-colors">
             Bang Bang<span className="text-brand-muted">.</span>
           </a>
           <p className="text-xs text-brand-muted max-w-sm font-light">
@@ -29,8 +29,8 @@ export default function Footer() {
         <nav className="flex flex-wrap justify-center gap-6 text-xs text-brand-muted font-medium">
           <a href="#hero" className="hover:text-brand-light transition-colors">Inicio</a>
           <a href="#gallery" className="hover:text-brand-light transition-colors">Galería</a>
-          <a href="#cotizador" className="hover:text-brand-light transition-colors">Cotizador</a>
           <a href="#resenas" className="hover:text-brand-light transition-colors">Reseñas</a>
+          <a href="#FAQ" className="hover:text-brand-light transition-colors">FAQ</a>          
           <a href="#contacto" className="hover:text-brand-light transition-colors">Contacto</a>
         </nav>
 

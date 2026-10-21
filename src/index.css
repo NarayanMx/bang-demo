@@ -11,9 +11,25 @@
   /* Fuente base para lectura general */
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
-  /* Fuente violenta / agresiva para títulos */
-  /* Opción A: "Dela Gothic One" (Súper pesada, urbana y contundente) */
-  /* Opción B: "UnifrakturMaguntia" (Gótica clásica violenta) */
+  /* Fuente agresiva / urbana para títulos */
   --font-display: "Dela Gothic One", sans-serif;
+
+  /* Fuente gótica clásica para acentos artísticos */
   --font-gothic: "UnifrakturMaguntia", cursive;
+
+  --font-eater: "Eater", cursive;
+}
+
+@layer utilities {
+  .font-gothic {
+    font-family: var(--font-gothic);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-eater {
+    font-family: var(--font-eater);
+  }
 }
